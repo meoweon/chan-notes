@@ -1,0 +1,25 @@
+# 运行产物与第三方代码
+# 以 / 开头锚定副本根目录，避免误伤源码包（如 chan_notes/data/）。
+/.venv/
+/.mplconfig/
+/.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# 数据（体积大，用脚本重建）
+/data/
+/logs/
+*.parquet
+
+# 只读参考仓库
+/refs/
+
+# 编译产物
+*.whl
+*.so
+*.dylib
+*.pyd
+
+# 本机杂项
+.DS_Store
+Thumbs.db
