@@ -2,7 +2,7 @@
 
 - 日期：2026-11-10（预注册）→ 2026-11-11（跑完并判定）
 - 状态：**已跑完，判定 = 翻案（C1/C2 `beats_armed_traditional`；C3 形式标签 `indistinguishable`，成因见 §3.4/§5 第 9 条）**
-- 关联仓库：`外部方法快照`（只读方法参考，`外部参照配置`、`外部参照`）
+- 关联方法：外部参照规范（只读，未随公开仓发布）
 - 关联决策：D032（标签与协议冻结）、D036–D039（bar 有效性）、D041（地板行披露）、D042（武装参照 + ≤5 行规则 + 继承口径须重算断言差 0）、D043（参照组最低要求一般化）、D044（点验落盘 + 门槛=披露同表达式）、D045（零历史处置 / 对称剔除 / `side` 对拍）、**D046（本实验：窗口由规则生成，不存手调三元组）**、**D049（本实验判定后登记：继承数值门槛失效时的 materiality 处置 / 规则化打开参照侧估计稳定性 / 机时超限的两种口径）**
 - 前置实验：[E005](E005-frenzy门控升级.md) → [E008](E008-死价bar剔除后重训.md)（标签、特征、切分、判定口径全部来自它）→ [E011](E011-garch与武装基线对照.md) / [E012](E012-crypto-garch与武装基线对照.md)（参照阶梯与本实验判据对象；E012 §6 第 4 条已把本题登记为待测）
 - 代码：`exp/E016-har-window-scale/`（协议 `E016-0.0.1`，现行冻结 sha256 `de76fab9b534…67fae65e`）。先验脚本 5 个 + 跑批脚本 `common.py / build_windows.py / repro_c0.py / train_arm.py / ladder.py / evaluate.py / test_no_lookahead.py / test_rule.py` + 判定后诊断 `diag_next_step_gap.py / diag_ladder_explosion.py`；对上游**只读复用**，运行期用 `common.arm_windows()` 临时改五个模块全局，未改 `vendor/`、`exp/E008-dead-bar`、`exp/E012-garch-crypto` 任何文件
@@ -30,7 +30,7 @@
 | # | 事实 | 证据 |
 |---|---|---|
 | 1 | E008 特征集 19 列里最短窗是 `log_rv_lag_24bar` = 过去 24 根均值，**lag-1 与任何短窗都不存在** | `exp/E008-dead-bar/code/features.py:25`（`HORIZONS=(24,120,528)`）、`:70-74`（`shift(1).rolling(hz)`）；列清单由 `diag_arm_probe.py` 打印 |
-| 2 | 原版 `(1,5,22)` 的最短分量在数学上**就是 lag-1 本身**（`rolling(1)` 无平滑），×24 平移把它删掉了 | `vendor/.../外部参照配置`、`外部参照` |
+| 2 | 原版 `(1,5,22)` 的最短分量在数学上**就是 lag-1 本身**（`rolling(1)` 无平滑），×24 平移把它删掉了 | 外部参照源码（只读） |
 | 3 | E012 已发表读数里，**共享该窗口的 HAR 族是整条阶梯 QLIKE 最差的臂，比零训练的 naive 还差 39%**：`har` 1.04686 / `har_hour` 1.05390 / `har_garch_rv` 1.11616 / `har_garch_rv_armed` 1.12681 vs `naive` 0.75111；逐 bar 递归的 `garch_rr` 0.54218 / `ewma_gk_armed` 0.58007 / `ewma_rr` 0.62033 全部领先候选（`lightgbm` 0.74805 / `xgboost` 0.74680） | `exp/E012-garch-crypto/out/evaluation.json:criterion_caliber_45`（sha256 `98222f99…ba29a`） |
 | 4 | 单窗口扫描：QLIKE 在 h=2 见底 0.744、h=24 已升到 0.991、h=720 达 1.610；自相关在 k=1 最高 0.706 | `out/single_window_scan.csv`、`out/lag_autocorr.csv` |
 | 5 | 换成规则窗口后（OLS-HAR 尺子、2024 年 12 折）：C0 0.82544 → R3 (1,27,720) 0.59313 / M1 (1,24,120,528) 0.59351，即 **−28%**；同口径零训练锚 0.75609 | `out/window_set_probe.csv` |
