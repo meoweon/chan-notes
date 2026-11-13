@@ -39,7 +39,7 @@
 | 建模目标 | 外部参照明写 modeling target：**次日单日 Garman-Klass 年化 σ 取 log**，标签不重叠，RV / GK 滞后列均由 GK 派生 | 未来 24 根 bar 的 close-to-close `sqrt(Σr²)` 取 log，相邻标签重叠 95.8%；GK 降为并列诊断 | **改回 GK 主标签**：1h 实例下为下一根 bar 的单 bar GK 年化 σ 取 log（`label_horizon_bars = 1`）；24 bar 累计 CC 降为并列诊断，不择优。见 §3 |
 | 特征族 | 28 列：1/5/22 日 log-RV 与 GK / Parkinson 滞后、收益与绝对收益滞后、美股宏观变量（波动率指数、利率、期限利差）及其滚动标准化、日历、ticker / sector 身份、行业 rank | qlib 158 字段（24/168/720 三尺度）为主；**明令禁一切身份、横截面、共同宏观特征**；158 为主链路 | **恢复原版可得特征族为主**：RV / GK / Parkinson 的多尺度滞后、收益滞后、日历、ticker 身份；qlib 158 按 D031 后移为阶段二可选消融。**共同宏观显式留空**，见 §1.3 |
 | 身份特征 | 外部参照的 HAR 用固定效应、LSTM 用 embedding、LightGBM 用 categorical，三处均使用 | 全部禁用，HAR 基线改纯 pooled | **恢复使用**（阶段一），HAR 基线恢复带 ticker 固定效应的 pooled OLS，与原版同口径；「禁身份」改为阶段二的泛化对照条件，不作阶段一约束 |
-| 模型族 | 5 模型横比：`metrics.csv` 为 外部参照的五模型横比（QLIKE） | XGBoost 主 + LightGBM 对照，仅 2 个学习器 | **D031 定案：候选学习器只有 LightGBM 与 XGBoost**，HAR-RV / persistence 是基线不是候选；LSTM / GARCH 不训、不装依赖、后移阶段二可选。详见 §4 |
+| 模型族 | 5 模型横比（QLIKE 口径，外部参照结果） | XGBoost 主 + LightGBM 对照，仅 2 个学习器 | **D031 定案：候选学习器只有 LightGBM 与 XGBoost**，HAR-RV / persistence 是基线不是候选；LSTM / GARCH 不训、不装依赖、后移阶段二可选。详见 §4 |
 | 验证难度 | 同一批标的贯穿 IS / OOS，无留 out 标的 | 新增固定留出标的组，并作为**通过判据**（D029 自认最可能判阴性） | 留 out 标的组**降为阶段一报告项**，不作通过判据；升为阶段二正式判据。阶段一判据回到原版口径：双指标同时优于两基线 |
 | 可用性 | 外部参照的 vol-target 组合层：净 Sharpe、换手、5bp 成本 | §5 明令「不设组合级判据、不接回测」 | **恢复为可用性验证**（§5.3）：只报 vol-target 的诊断表，用来确认预测值可还原成年化 σ、经济量纲自洽、换手可承受；**不设「必须优于 frenzy / 必须赚钱」这类应用判据** |
 
