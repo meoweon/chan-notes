@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>被研究明白的市场规律与公式（chan-research 参考页）</title>
+<style>
+  :root {
+    --bg: #faf9f6; --card: #ffffff; --ink: #1f2430; --sub: #5b6472;
+    --accent: #0b6e4f; --accent-soft: #e8f3ee; --warn: #9a3412; --warn-soft: #fdf1e7;
+    --line: #e5e2da; --num: #1d4ed8; --code-bg: #f1efe9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161b; --card: #1c1f26; --ink: #e8e6e1; --sub: #a3abb8;
+      --accent: #4ade80; --accent-soft: #1d2b24; --warn: #fdba74; --warn-soft: #2b2018;
+      --line: #2c3038; --num: #93b4ff; --code-bg: #24272f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.85;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 40px 22px 80px; }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 6px; }
+  h2 { font-size: 20px; margin: 48px 0 12px; padding: 6px 0 6px 14px;
+       border-left: 5px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; }
+  h3 { font-size: 17px; margin: 26px 0 8px; }
+  p { margin: 8px 0; }
+  .sub { color: var(--sub); font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+          padding: 14px 20px; margin: 14px 0; }
+  .verdict { border-left: 5px solid var(--accent); }
+  .pit { border-left: 5px solid var(--warn); background: var(--warn-soft); border-radius: 0 12px 12px 0;
+         padding: 10px 16px; margin: 12px 0; font-size: 15px; }
+  .pit b { color: var(--warn); }
+  .num { color: var(--num); font-weight: 600; font-variant-numeric: tabular-nums; }
+  code { background: var(--code-bg); border-radius: 5px; padding: 1px 7px;
+         font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 0.88em; }
+  .formula { display: block; background: var(--code-bg); border-radius: 8px; padding: 8px 14px;
+             margin: 8px 0; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 14px;
+             overflow-x: auto; white-space: nowrap; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14.5px; }
+  th, td { border: 1px solid var(--line); padding: 7px 11px; text-align: left; vertical-align: top; }
+  th { background: var(--accent-soft); font-weight: 600; }
+  .law { border: 1px solid var(--line); border-radius: 12px; margin: 14px 0; background: var(--card); overflow: hidden; }
+  .law .head { padding: 10px 18px; background: var(--accent-soft); font-weight: 700; font-size: 16px; }
+  .law .head .en { font-weight: 400; color: var(--sub); font-size: 13px; margin-left: 8px; }
+  .law .body { padding: 8px 18px 12px; }
+  .src { color: var(--sub); font-size: 13.5px; margin-top: 6px; }
+  .ours { font-size: 14px; color: var(--accent); margin-top: 4px; }
+  .tag { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 99px;
+         background: var(--accent-soft); color: var(--accent); margin-left: 8px; vertical-align: 2px; }
+  .tag.warn { background: var(--warn-soft); color: var(--warn); }
+  ol.refs { font-size: 13.5px; color: var(--sub); }
+  ol.refs li { margin: 4px 0; }
+  footer { margin-top: 60px; padding-top: 14px; border-top: 1px solid var(--line);
+           color: var(--sub); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>被研究明白的市场规律与公式</h1>
+<p class="sub">2026-11-11 ｜ chan-research 参考页 ｜ 编写方式：经典条目来自学界公认文献（未在本仓逐篇复算，标为文献级证据）；2025–2026 的新进展已检索核对出处；标注「本仓实测」的才是我们自己的可复算结论。</p>
+
+<div class="card verdict">
+<p><b>有目标才能谈超越。</b>这一页就是「目标清单」：哪些规律已经被研究到收敛、哪些公式已经是行业标准答案、哪些是近十年的新进展。</p>
+<p><b>先记住最重要的一句：</b>被研究明白的多是<b>形状、测量、执行</b>——「波动怎么动、怎么量得准、下单要付多少代价」；而「明天涨还是跌」恰好是研究得最<b>不</b>明白、且一旦明白就会被套利吃掉的那部分。所以下面 18 条里，没有一条是「稳赢的方向公式」，这不是遗漏，是事实本身。</p>
+</div>
+
+<h2>一、形状规律（风格化事实）：市场长什么样</h2>
+<p class="sub">这类不是策略，是「地形的等高线」——所有模型都必须先符合它们。</p>
+
+<div class="law"><div class="head">1. 波动率聚集<span class="en">volatility clustering</span></div><div class="body">
+<p><b>大白话：</b>大波动后面跟着大波动，小波动后面跟着小波动。市场有「暴怒期」和「平静期」，不是每天独立掷骰子。</p>
+<p><b>地位：</b>整个波动率预测行业的地基。没有它，GARCH、HAR、我们的树模型全部无从谈起。</p>
+<p class="src">出处：Mandelbrot (1963)《The Variation of Certain Speculative Prices》；Engle (1982) ARCH。</p>
+<p class="ours">本仓实测：1 小时 crypto 上同样成立——「昨天的波动」至今仍是最难打败的对手（E011/E012）。</p>
+</div></div>
+
+<div class="law"><div class="head">2. 厚尾<span class="en">fat tails</span></div><div class="body">
+<p><b>大白话：</b>极端行情出现的频率比正态分布预测的高几个数量级。「百年一遇」的暴跌，实际十几年就来一次。</p>
+<p><b>经验值：</b>美股收益率尾部近似幂律，尾指数约 3（Plerou et al. 1999）；意思是「跌幅翻倍，概率缩到约 1/8」。</p>
+<p class="src">出处：Mandelbrot (1963)；Plerou, Gopikrishnan 等 (1999)。尾指数为美股经验值，crypto 本仓未测。</p>
+<p class="ours">本仓相关：这就是为什么我们禁止给预测值「加地板」来防爆尾——尾部是真实信息，不是噪声（E016/E022）。</p>
+</div></div>
+
+<div class="law"><div class="head">3. 长记忆与多尺度<span class="en">long memory</span></div><div class="body">
+<p><b>大白话：</b>波动率的「惯性」衰减得很慢——一个月前的大行情，到今天还有残余影响；而且不同时间尺度（小时/天/月）各有各的节奏。</p>
+<p><b>地位：</b>HAR 那三条尺子（1 天/1 周/1 月）正是对长记忆的极简近似。</p>
+<p class="src">出处：Ding, Granger &amp; Engle (1993)；Baillie, Bollerslev &amp; Mikkelsen (1996) FIGARCH。</p>
+<p class="ours">本仓实测：E016 的翻案就发生在「尺子刻度」上——补上「最近 1 小时」这把快尺后，模型才打赢武装参照。</p>
+</div></div>
+
+<div class="law"><div class="head">4. 日内 U 型与日历效应<span class="en">intraday U-shape</span></div><div class="body">
+<p><b>大白话：</b>股市里开盘和收盘附近的量与波动天然更大，中午最平静，像字母 U。星期几、月份也有微弱但稳定的差别。</p>
+<p><b>地位：</b>这是「免费信息」——不需要任何模型就能算出来，所以必须喂给基线，否则你的模型只是靠它作弊取胜。</p>
+<p class="src">出处：Wood, McInish &amp; Ord (1985)；Admati &amp; Pfleiderer (1988)。crypto 是 7×24 小时市场，U 型形态不同，须自测。</p>
+<p class="ours">本仓实测：我们所有「武装基线」都含小时/星期修正（E012/E016）；E014 的零训练臂里，日历类规则能白送不少分。</p>
+</div></div>
+
+<div class="law"><div class="head">5. 量与波幅同向（混合分布假说）<span class="en">MDH</span><span class="tag">与你的量线直接相关</span></div><div class="body">
+<p><b>大白话：</b>成交量大的时候，价格波动也大。主流解释：两者被同一个看不见的东西驱动——<b>信息到达的速度</b>。消息密集时，既放量又放波幅。</p>
+<p><b>细化：</b>Li &amp; Wu (2006) 发现这种正相关主要由「知情交易」那部分量驱动；控制住信息流之后，量与波动甚至可能反相关。部分商品期货市场则报告了不符合假说的证据——<b>它是倾向，不是铁律</b>。</p>
+<p class="src">出处：Clark (1973)；Karpoff (1987) 综述；Tauchen &amp; Pitts (1983)；Li &amp; Wu (2006)。</p>
+<p class="ours">本仓实测：与 E021 完全一致——量的状态能告诉你「接下来晃不晃」，但告诉不了你「往哪边晃」（方向 Δr1 为负，波幅上又被现成的价格波动率列压制）。E023 候选（量列进波动率面板）正是这条假说的待测形态。</p>
+</div></div>
+
+<div class="law"><div class="head">6. 杠杆效应 / 不对称波动<span class="en">leverage effect</span></div><div class="body">
+<p><b>大白话：</b>股市里跌的时候波动往往涨得更多——「下跌让人恐慌，恐慌放大波动」。坏消息对波动的冲击大于同等幅度的好消息。</p>
+<p class="src">出处：Black (1976)；Christie (1982)。主战场是股指/个股；crypto 上可能减弱甚至反向，本仓未测，引用时须标适用域。</p>
+</div></div>
+
+<div class="law"><div class="head">7. 危机时相关性趋 1<span class="en">correlations go to one</span></div><div class="body">
+<p><b>大白话：</b>平时各走各的资产，危机里一起跌。「分散投资」在你最需要它的那天失效。</p>
+<p class="src">出处：Longin &amp; Solnik (2001)。这是组合层面的规律，和我们做仓位上限、回撤控制直接相关。</p>
+</div></div>
+
+<h2>二、测量与预测公式：被总结成「标准答案」的算法</h2>
+<p class="sub">这一层是「已经被压缩成公式」的知识——新模型上岗前，考题就是打赢它们。</p>
+
+<div class="law"><div class="head">8. 范围估计器：Parkinson / Garman-Klass<span class="en">两支体温计</span></div><div class="body">
+<p><b>大白话：</b>只用「收盘价」算波动，等于一天只量一次体温；把当天的<b>最高价、最低价、开收盘价</b>都用上，等于整天连续监测——同样一段数据，量得准好几倍（教科书常引理论效率约 5~7 倍）。</p>
+<span class="formula">Parkinson：σ² = [ln(最高/最低)]² / (4 ln 2)
+Garman-Klass：σ² = 0.5·[ln(高/低)]² − (2 ln 2 − 1)·[ln(收/开)]²</span>
+<p class="src">出处：Parkinson (1980)；Garman &amp; Klass (1980)；后续 Rogers &amp; Satchell (1991)、Yang &amp; Zhang (2000) 处理跳空与漂移。</p>
+<p class="ours">本仓实测：E008 波动率面板 19 列里有 6 列就是它们×三个窗口——上游注释叫「给模型一个小小的估计器组合」。多列合起来更强，机制是<b>噪声对冲</b>，不是新信息。</p>
+</div></div>
+
+<div class="law"><div class="head">9. GARCH<span class="en">Bollerslev 1986</span></div><div class="body">
+<p><b>大白话：</b>「今天的波动 = 昨天的波动 + 昨天的意外冲击」两个方程互相滚动。它把「波动率聚集」写成了递推公式，是过去四十年风险管理软件的默认引擎。</p>
+<span class="formula">GARCH(1,1)：σ²(t) = ω + α·ε²(t−1) + β·σ²(t−1)</span>
+<p class="src">出处：Engle (1982) ARCH；Bollerslev (1986) GARCH。</p>
+<p class="ours">本仓实测：crypto 1h 上它输给武装参照（E011/E012）；E022 查明它的联合极大似然估计偶尔会算崩到 10 的 178 次方，换成「先 OLS 再 GARCH」的两步法治好——<b>公式没变，估计方法才是病根</b>。</p>
+</div></div>
+
+<div class="law"><div class="head">10. EWMA（λ = 0.94）<span class="en">RiskMetrics 1996</span></div><div class="body">
+<p><b>大白话：</b>GARCH 的极简版：不要 α、β 两个参数，固定 λ=0.94——「越近的行情权重越大，每天旧信息打 94 折」。一行公式，曾是全行业的 VaR 标准。</p>
+<span class="formula">σ²(t) = 0.94·σ²(t−1) + 0.06·r²(t−1)</span>
+<p class="src">出处：J.P. Morgan RiskMetrics 技术文档 (1996)。</p>
+<p class="ours">本仓实测：量模型里的 <code>ewma94</code> 列就是它的直系后代——那列独自占了模型 19.2% 的 gain。</p>
+</div></div>
+
+<div class="law"><div class="head">11. HAR<span class="en">Corsi 2009</span><span class="tag">本仓的裁判</span></div><div class="body">
+<p><b>大白话：</b>用三条尺子预测波动：<b>最近 1 天的平均 + 最近 1 周的平均 + 最近 1 月的平均</b>，加权相加。三把尺子对应三类不同节奏的市场参与者（日内/波段/配置），这就是「异质」的含义。</p>
+<span class="formula">RV(t+1) = a + b_d·RV_日(t) + b_w·RV_周(t) + b_m·RV_月(t)</span>
+<p><b>地位：</b>过去十五年的<b>入门考裁判</b>。任何新波动率模型的第一道考题就是打赢它；文献里普遍的胜幅都很小。</p>
+<p class="src">出处：Corsi (2009)《A Simple Approximate Long-Memory Model of Realized Volatility》。</p>
+<p class="ours">本仓实测：先输（E011/E012），把三条尺子的刻度从手调改成规则生成后赢 −0.070 QLIKE（E016）；上游美股树模型只比它多 +7.7% 样本外 R²，且「主要是重新发现 HAR 式聚合」（作者声称）。</p>
+</div></div>
+
+<div class="law"><div class="head">12. QLIKE<span class="en">Patton 2011</span></div><div class="body">
+<p><b>大白话：</b>波动率预测的「标准打分」。它有两个刻意设计：低估罚得比高估重（低估会让你重仓挨打）；而且即使用的「真实波动」只是带噪声的代理，排名依然可靠——这对「真值永远测不准」的波动率是关键性质。</p>
+<span class="formula">QLIKE = y/ŷ − ln(y/ŷ) − 1　（方差口径，越小越好）</span>
+<p class="src">出处：Patton (2011)《Volatility forecast comparison using imperfect volatility proxies》。</p>
+<p class="ours">本仓实测：E011/E012/E016 全部用它当判据，和它配套的是「武装参照 + 置信区间不跨 0」的裁决方式。</p>
+</div></div>
+
+<div class="law"><div class="head">13. 微结构噪声：采样越密 ≠ 量得越准<span class="en">microstructure noise</span></div><div class="body">
+<p><b>大白话：</b>直觉上数据越密越好，但 tick 级价格里塞满了买卖价差跳动、报价延迟这些「交易机制的噪声」。采样频率拉满时，你量到的可能是噪声而不是波动。对策是「两尺度」之类的降噪估计器。</p>
+<p class="src">出处：Roll (1984) 价差与序列相关；Zhang, Mykland &amp; Aït-Sahalia (2005) 两尺度已实现方差。</p>
+<p class="ours">本仓相关：E008 剔除死量 bar 属于同一家族的问题（数据层脏东西会污染测量）；我们选 1h 而不是 tick，也暗合这条规律。</p>
+</div></div>
+
+<div class="law"><div class="head">14. 跳跃与「好波动 / 坏波动」分解<span class="en">jumps &amp; semivariance</span></div><div class="body">
+<p><b>大白话：</b>把波动拆成两堆分别预测，往往比整体预测更准：① 连续的小碎步 vs 突然的<b>跳跃</b>（双幂变差 BV 可把跳跃分离出来）；② 上涨造成的<b>好波动</b> vs 下跌造成的<b>坏波动</b>（半方差），其中坏波动对未来的预测力更强。</p>
+<span class="formula">BV = (π/2)·Σ |r(t)|·|r(t−1)|　⇒　跳跃 ≈ RV − BV
+RV⁻ = Σ r(t)²·1{r(t)&lt;0}（下行半方差）</span>
+<p class="src">出处：Barndorff-Nielsen &amp; Shephard (2004)；Patton &amp; Sheppard (2015)《Good Volatility, Bad Volatility》。</p>
+</div></div>
+
+<h2>三、收益与执行规律：关于「钱」的那一层</h2>
+
+<div class="law"><div class="head">15. 中期动量<span class="en">momentum</span></div><div class="body">
+<p><b>大白话：</b>过去 3~12 个月涨得好的，接下来一段平均继续占优——「强者恒强」。在多国、多资产上被反复复现，是最顽强的方向性规律之一。但它有明确的阴暗面：拥挤、以及偶尔一次全市场同时反向的「动量崩盘」。</p>
+<p class="src">出处：Jegadeesh &amp; Titman (1993)；Moskowitz, Ooi &amp; Pedersen (2012) 时间序列动量。</p>
+<p class="ours">本仓相关：BSP 买点线的「突破后延续」直觉是它的近亲；注意动量是<b>截面/中周期</b>规律，和我们 1 小时频率不直接通用。</p>
+</div></div>
+
+<div class="law"><div class="head">16. 长期反转<span class="en">long-term reversal</span><span class="tag warn">有争议</span></div><div class="body">
+<p><b>大白话：</b>拉长到 3~5 年，过去的输家平均跑赢赢家——「涨多了总要还」。和动量并不矛盾：一个管中期，一个管超长期。证据强度和稳健性弱于动量。</p>
+<p class="src">出处：De Bondt &amp; Thaler (1985)。</p>
+</div></div>
+
+<div class="law"><div class="head">17. 方差风险溢价<span class="en">variance risk premium</span></div><div class="body">
+<p><b>大白话：</b>期权隐含的波动率，平均而言<b>高于</b>事后真实走出来的波动率。差额是买家付给卖家的「保险费」——所以长期卖保险（卖波动率）平均有赚，代价是偶尔一次大亏。这是「风险可以被定价」的直接证据。</p>
+<p class="src">出处：Carr &amp; Wu (2009)；Bollerslev, Tauchen &amp; Zhou (2009)。</p>
+<p class="ours">本仓相关：波动率预测若真够准，最自然的变现通道之一就是这条（判断保险费贵不贵）——比拿它猜方向靠谱得多。</p>
+</div></div>
+
+<div class="law"><div class="head">18. 平方根冲击定律<span class="en">square-root impact law</span><span class="tag">2025 获最强验证</span></div><div class="body">
+<p><b>大白话：</b>你下单本身会推动价格，推动幅度约等于「你的量占当日总量的比例」开平方，再乘以日波动率。买 1% 的日成交量，大约推动 10% 的日波动幅度；想让冲击翻倍，量要变 4 倍。<b>大单越往后每份的边际冲击越小——但总额仍不可忽略，这就是机构的「容量」学问。</b></p>
+<span class="formula">冲击 I(Q) ≈ Y · σ_日 · √(Q / V_日)，Y ≈ 0.5~1（品种相关常数）</span>
+<p><b>2025 新验证：</b>Sato &amp; Kanazawa 用东京证券交易所 2012–2019 <b>8 年全量账户级数据</b>（发表于 Physical Review Letters），把「指数恰好是 0.5」从跨市场经验规律推进到全市场普查级证据；也明确了边界——流动性枯竭（闪崩）时不适用。</p>
+<p class="src">出处：Almgren et al. (2005)；Tóth et al. (2011)；Bouchaud 等《Trades, Quotes and Prices》(2018)；Sato &amp; Kanazawa (2025) PRL / arXiv:2411.13965。</p>
+<p class="ours">本仓相关：这是「机构护城河在工程与执行，不在预测」的定量证明；我们回测里每回合扣的 bp 成本，理论上应与它同源。</p>
+</div></div>
+
+<h2>四、近十年的新进展（已检索核对，2026-11-11）</h2>
+
+<div class="law"><div class="head">19. 粗糙波动率<span class="en">rough volatility</span><span class="tag">HAR 之后最重要的「新规律」候选</span><span class="tag warn">仍有争议</span></div><div class="body">
+<p><b>大白话：</b>对数波动率的「粗糙程度」远超经典布朗运动假设——用分数布朗运动刻画，Hurst 指数实测约 <b>0.1</b>（布朗运动是 0.5，越小路越糙）。一句话：波动率不光有长记忆，它本身就是「毛毛糙糙」的，这个性质在股指、汇率、商品上广泛出现。</p>
+<span class="formula">Var( log σ(t+Δ) − log σ(t) ) ∝ Δ^(2H)，H ≈ 0.1</span>
+<p><b>为什么重要：</b>它把「长记忆」和「路径粗糙」统一成一个参数，衍生出 rough HAR、rough Heston 等新一代模型，也是近十年波动率研究的主线之一。</p>
+<p><b>反方声音（要一起看）：</b>Cont &amp; Das (2022)《Rough volatility: fact or artefact?》指出，部分「粗糙」读数可能来自测量方式与瞬时波动估计的伪影——也就是说，「糙」可能有相当一部分是<b>温度计</b>的问题，不是市场的问题。</p>
+<p class="src">出处：Gatheral, Jaisson &amp; Rosenbaum (2014/2018)《Volatility is rough》Quantitative Finance；反方 Cont &amp; Das (2022) arXiv:2203.13820；后续 rough HAR 系列（Lin, Niu &amp; Zhang）。</p>
+<p class="ours">本仓相关：如果粗糙性成立，「快尺 + 多尺度」就不是可选项而是必需——这与 E016 补快档的实测方向一致，但本仓未直接测 H 指数，引用时标文献级。</p>
+</div></div>
+
+<div class="law"><div class="head">20. 机器学习 vs HAR：文献正在收敛到和我们一样的结论</div><div class="body">
+<p><b>三处独立证据拼出的图景：</b></p>
+<p>① Christensen, Siggaard &amp; Veliyev (2023, Journal of Financial Econometrics)：机器学习方法能稳定改进样本外波动率预测——<b>增量是真的</b>。<br>
+② 冯文君、张正军等 (2026，《跳跃信息、机器学习模型与已实现波动率预测》)：多维跳跃信息确实提升中长期预测；但<b>一旦 HAR 纳入跳跃信息，机器学习几乎不再提供额外增量</b>——<b>增量会被「武装后的 HAR」吃掉</b>。<br>
+③ 我们引用的上游工程仓：树模型只比 HAR 多 +7.7% 样本外 R²，作者原话「主要是重新发现 HAR 式聚合，加一小层非线性」。</p>
+<p><b>合起来读：</b>「ML 打赢 HAR」和「ML 打赢武装 HAR」是两道完全不同的题。这道分界正是我们仓「武装基线」纪律的文献级佐证。</p>
+<p class="src">另见：Digital Finance (2025) 综述《Advances in forecasting realized volatility: a review of methodologies》；Buccheri &amp; Corsi (2019)《HARK the SHARK》（把测量误差与非线性并入 HAR）。</p>
+</div></div>
+
+<div class="law"><div class="head">21. 观察名单（2025–2026，尚未成熟）<span class="tag warn">不是定论</span></div><div class="body">
+<p>① <b>时序基础模型</b>用于已实现波动率预测（arXiv:2505.11163）：把「预训练大模型」搬进波动率；② <b>crypto 波动率的模型聚类</b>（Economic Modelling, 2025）：按市场状态选模型而不是一个模型打全场；③ <b>VOLARE</b> 已实现估计公开数据集（arXiv:2602.19732）：降低复现门槛的基础设施。</p>
+<p class="src">这些条目只登记为「值得关注」，本页不为其效果背书；若未来立项，须按本仓规矩先过非平凡门与武装基线。</p>
+</div></div>
+
+<h2>五、三条诚实的警告（读这页时必须带上的刹车）</h2>
+
+<div class="pit"><b>警告 1：规律一旦公开，收益平均衰减约 58%。</b><br>
+McLean &amp; Pontiff (2016, Journal of Finance) 对 97 个已发表特征的研究：样本外衰减一部分，<b>正式发表后再衰减一大截，合计约 58%</b>。机制很直白：知道了就有人做，做的人多了肉就没了。所以本页任何一条「规律」都不等于「现在还能赚钱」——尤其方向类。</div>
+
+<div class="pit"><b>警告 2：可预测 ≠ 可交易。</b><br>
+本仓自己的对照：上游 美股指数 上，QLIKE 最差的 GARCH 反而净 Sharpe 最高；四个模型之间差距很小，而「用波动率调仓位」这个动作本身贡献更大。<b>预测精度是小头，决策与成本是大头。</b>本页第 8~14 条（测量与预测）只有接上第 17、18 条（定价与执行）才变成钱。</div>
+
+<div class="pit"><b>警告 3：每条规律都有适用域。</b><br>
+杠杆效应主战场在股市；U 型在 7×24 的 crypto 里形态不同；平方根定律在闪崩时失效；动量在 1 小时频率上不通用。本仓 E016 已经演示过一次：同一个模型，只换窗口刻度，判定从「输」翻成「赢」。<b>跨市场、跨频率引用任何数字前，先重测。</b></div>
+
+<h2>六、与本仓的对照表（哪些已经落地、哪些还空着）</h2>
+<table>
+<tr><th style="width:26%">规律 / 公式</th><th style="width:38%">在本仓的落点</th><th>状态</th></tr>
+<tr><td>波动率聚集 / 长记忆</td><td>波动率线全部实验的地基</td><td>已实测成立</td></tr>
+<tr><td>范围估计器（GK / Parkinson）</td><td>E008 面板 19 列中的 6 列</td><td>已落地</td></tr>
+<tr><td>EWMA λ=0.94</td><td>E017 的 <code>ewma94</code> 列（gain 19.2%）</td><td>已落地</td></tr>
+<tr><td>HAR</td><td>E011/E012/E016 的裁判与骨架</td><td>已落地，打赢过</td></tr>
+<tr><td>QLIKE</td><td>波动率线统一判据</td><td>已落地</td></tr>
+<tr><td>日历 / 日内效应</td><td>武装基线的小时、星期修正</td><td>已落地</td></tr>
+<tr><td>量-波幅同向（MDH）</td><td>E021 关联探针 → E023 候选（量列进波动率面板）</td><td><b>特征层待测</b></td></tr>
+<tr><td>跳跃 / 好坏波动分解</td><td>文献显示能给 HAR 加配料吃掉 ML 增量</td><td><b>未测，候选配料</b></td></tr>
+<tr><td>粗糙波动率</td><td>与 E016 补快尺方向一致</td><td>未直接测 H</td></tr>
+<tr><td>微结构噪声</td><td>E008 死量 bar 剔除、1h 频率选择</td><td>部分落地</td></tr>
+<tr><td>平方根冲击定律</td><td>成本模型、容量、机构护城河</td><td><b>空白（执行层）</b></td></tr>
+<tr><td>方差风险溢价</td><td>波动率预测的潜在变现通道</td><td><b>空白（需要期权数据）</b></td></tr>
+<tr><td>动量 / 长期反转</td><td>BSP 方向线的背景知识</td><td>未直接测</td></tr>
+<tr><td>公开即衰减</td><td>所有阳性结论的谦逊折扣</td><td>纪律层面吸收</td></tr>
+</table>
+
+<h2>七、参考文献</h2>
+<ol class="refs">
+<li>Mandelbrot, B. (1963). The Variation of Certain Speculative Prices. <i>Journal of Business</i>.</li>
+<li>Engle, R. F. (1982). Autoregressive Conditional Heteroscedasticity… <i>Econometrica</i>.</li>
+<li>Bollerslev, T. (1986). Generalized Autoregressive Conditional Heteroskedasticity. <i>Journal of Econometrics</i>.</li>
+<li>Clark, P. K. (1973). A Subordinated Stochastic Process Model with Finite Variance for Speculative Prices. <i>Econometrica</i>.</li>
+<li>Karpoff, J. M. (1987). The Relation between Price Changes and Trading Volume: A Survey. <i>JMCB</i>.</li>
+<li>Wood, R. A., McInish, T. H. &amp; Ord, J. K. (1985). An Investigation of Transactions Data for NYSE Stocks. <i>Journal of Finance</i>.</li>
+<li>Admati, A. R. &amp; Pfleiderer, P. (1988). A Theory of Intraday Patterns. <i>Review of Financial Studies</i>.</li>
+<li>Black, F. (1976). Studies of Stock Price Volatility Changes. <i>Proceedings of the ASA</i>; Christie, A. A. (1982).</li>
+<li>Parkinson, M. (1980). The Extreme Value Method for Estimating the Variance of the Rate of Return. <i>Journal of Business</i>.</li>
+<li>Garman, M. B. &amp; Klass, M. J. (1980). On the Estimation of Security Price Volatilities from Historical Data. <i>Journal of Business</i>.</li>
+<li>J.P. Morgan (1996). RiskMetrics — Technical Document（EWMA λ=0.94）.</li>
+<li>Ding, Z., Granger, C. W. J. &amp; Engle, R. F. (1993). A Long Memory Property of Stock Market Returns… <i>Journal of Empirical Finance</i>.</li>
+<li>Corsi, F. (2009). A Simple Approximate Long-Memory Model of Realized Volatility. <i>Journal of Financial Econometrics</i>.</li>
+<li>Patton, A. J. (2011). Volatility Forecast Comparison Using Imperfect Volatility Proxies. <i>Journal of Econometrics</i>.</li>
+<li>Zhang, L., Mykland, P. A. &amp; Aït-Sahalia, Y. (2005). A Tale of Two Time Scales. <i>JASA</i>.</li>
+<li>Barndorff-Nielsen, O. E. &amp; Shephard, N. (2004). Power and Bipower Variation… <i>Journal of the Royal Statistical Society B</i>.</li>
+<li>Patton, A. J. &amp; Sheppard, K. (2015). Good Volatility, Bad Volatility. <i>Review of Economics and Statistics</i>.</li>
+<li>Jegadeesh, N. &amp; Titman, S. (1993). Returns to Buying Winners and Selling Losers. <i>Journal of Finance</i>.</li>
+<li>Moskowitz, T., Ooi, Y. H. &amp; Pedersen, L. H. (2012). Time Series Momentum. <i>Journal of Financial Economics</i>.</li>
+<li>De Bondt, W. F. M. &amp; Thaler, R. (1985). Does the Stock Market Overreact? <i>Journal of Finance</i>.</li>
+<li>Carr, P. &amp; Wu, L. (2009). Variance Risk Premiums. <i>Review of Financial Studies</i>; Bollerslev, Tauchen &amp; Zhou (2009).</li>
+<li>Longin, F. &amp; Solnik, B. (2001). Extreme Correlation of International Equity Markets. <i>Journal of Finance</i>.</li>
+<li>Almgren, R. et al. (2005). Direct Estimation of Equity Market Impact. <i>Risk</i>; Tóth, B. et al. (2011)；Bouchaud, J.-P. 等 (2018)《Trades, Quotes and Prices》.</li>
+<li><b>Sato, Y. &amp; Kanazawa, K. (2025). Strict Universality of the Square-Root Law in Price Impact across Stocks. <i>Physical Review Letters</i>（arXiv:2411.13965，东京证券交易所 8 年全量数据）.</b></li>
+<li>Gatheral, J., Jaisson, T. &amp; Rosenbaum, M. (2014/2018). Volatility Is Rough. <i>Quantitative Finance</i>.</li>
+<li>Cont, R. &amp; Das, P. (2022). Rough Volatility: Fact or Artefact? arXiv:2203.13820.</li>
+<li>Christensen, K., Siggaard, M. &amp; Veliyev, B. (2023). A Machine Learning Approach to Volatility Forecasting. <i>Journal of Financial Econometrics</i> 22(2):492–530.</li>
+<li>冯文君、张正军、王一鸣 (2026). 跳跃信息、机器学习模型与已实现波动率预测.（结论：HAR 纳入跳跃信息后 ML 几乎无增量）.</li>
+<li>Digital Finance (2025). Advances in Forecasting Realized Volatility: A Review of Methodologies. doi:10.1186/s40854-025-00809-5.</li>
+<li>McLean, R. D. &amp; Pontiff, J. (2016). Does Academic Research Destroy Stock Return Predictability? <i>Journal of Finance</i> 71(1):5–32.</li>
+<li>Buccheri, G. &amp; Corsi, F. (2019). HARK the SHARK: Realized Volatility Modeling with Measurement Errors and Nonlinear Dependencies.</li>
+</ol>
+
+<footer>
+编写说明：① 经典条目为文献级证据（本仓未逐篇复算），凡有本仓实测的均单独标注实验编号；② 第 19~21 条与「平方根定律 2025 验证」为 2026-11-11 检索核对后的新进展；③ 本页是「地图」不是「策略」——所有条目要进本仓判据，仍须过非平凡门与武装基线；④ 未提交 git。
+</footer>
+
+</div>
+</body>
+</html>

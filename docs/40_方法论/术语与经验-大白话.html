@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>术语大白话 + 这一程的经验总结（chan-research）</title>
+<style>
+  :root {
+    --bg: #faf9f6; --card: #ffffff; --ink: #1f2430; --sub: #5b6472;
+    --accent: #0b6e4f; --accent-soft: #e8f3ee; --warn: #9a3412; --warn-soft: #fdf1e7;
+    --line: #e5e2da; --num: #1d4ed8; --code-bg: #f1efe9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161b; --card: #1c1f26; --ink: #e8e6e1; --sub: #a3abb8;
+      --accent: #4ade80; --accent-soft: #1d2b24; --warn: #fdba74; --warn-soft: #2b2018;
+      --line: #2c3038; --num: #93b4ff; --code-bg: #24272f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.85;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 40px 22px 80px; }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 6px; }
+  h2 { font-size: 20px; margin: 48px 0 12px; padding: 6px 0 6px 14px;
+       border-left: 5px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; }
+  h3 { font-size: 17px; margin: 26px 0 8px; }
+  p { margin: 8px 0; }
+  .sub { color: var(--sub); font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+          padding: 16px 20px; margin: 14px 0; }
+  .verdict { border-left: 5px solid var(--accent); }
+  .pit { border-left: 5px solid var(--warn); background: var(--warn-soft); border-radius: 0 12px 12px 0;
+         padding: 10px 16px; margin: 10px 0; font-size: 15px; }
+  .pit b { color: var(--warn); }
+  .num { color: var(--num); font-weight: 600; font-variant-numeric: tabular-nums; }
+  code { background: var(--code-bg); border-radius: 5px; padding: 1px 7px;
+         font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 0.88em; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14.5px; }
+  th, td { border: 1px solid var(--line); padding: 7px 11px; text-align: left; vertical-align: top; }
+  th { background: var(--accent-soft); font-weight: 600; }
+  tr:nth-child(even) td { background: color-mix(in srgb, var(--card) 92%, var(--accent-soft)); }
+  details { border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; background: var(--card); }
+  summary { cursor: pointer; padding: 10px 16px; font-weight: 600; font-size: 16px; }
+  details[open] summary { border-bottom: 1px dashed var(--line); }
+  .body { padding: 6px 20px 14px; }
+  dl { margin: 6px 0; }
+  dt { font-weight: 700; margin-top: 14px; font-size: 15.5px; }
+  dt .en { color: var(--sub); font-weight: 400; font-size: 13px; margin-left: 6px; }
+  dd { margin: 3px 0 0 0; }
+  dd .why { color: var(--sub); font-size: 14px; display: block; margin-top: 2px; }
+  .tag { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 99px;
+         background: var(--accent-soft); color: var(--accent); margin-left: 8px; vertical-align: 2px; }
+  .tag.warn { background: var(--warn-soft); color: var(--warn); }
+  ol.lessons > li { margin: 18px 0; }
+  ol.lessons .one { font-weight: 700; font-size: 16.5px; }
+  ol.lessons .how { color: var(--sub); font-size: 14.5px; margin-top: 4px; }
+  .check li { margin: 6px 0; }
+  footer { margin-top: 60px; padding-top: 14px; border-top: 1px solid var(--line);
+           color: var(--sub); font-size: 13px; }
+  @media print { details { border: none; } details .body { display: block !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>术语大白话 + 这一程的经验总结</h1>
+<p class="sub">2026-11-11 ｜ chan-research 研究仓 ｜ 写给你自己看的说明书：全部结论来自本仓可复算产物与上游源码，推测处单独标注。</p>
+
+<div class="card verdict">
+<p><b>这一页回答你昨天那个问题：</b>「我总觉得思维欠缺了什么，我不知道我不知道什么。」</p>
+<p>答案不是缺少更多特征，而是缺三样东西：<span class="num">① 判卷纪律</span>（你已经有了大半）、<span class="num">② 机制直觉</span>（知道数字背后是什么在动）、<span class="num">③ 从预测到钱的最后一环</span>（整个仓 20 多个实验，没有一个测过「准了之后决策变好」）。</p>
+</div>
+
+<h2>〇、一张地图：我们这一程到底做了什么</h2>
+<p>先把家底盘清楚。你已经有的东西比你想的多——四条线、二十几个实验，每条线都有一句「判了什么」：</p>
+
+<table>
+<tr><th style="width:22%">线</th><th style="width:44%">考卷（实验编号）</th><th>一句话结果</th></tr>
+<tr><td><b>波动率预测线</b></td>
+<td>E005 门控 → E008 死量 bar 剔除 → E010 A股探针 → E011/E012 EWMA/GARCH 对照 → E016 窗口规则化 → E022 参照稳定性</td>
+<td>树模型一度「输给笨办法」；E016 把窗口从手调改成规则生成后<b>翻案</b>（差距 −0.070，置信区间不跨 0）；E022 查明参照偶尔爆炸是<b>估计方法的病</b>，两步法治疗后 16/16 回到门内</td></tr>
+<tr><td><b>成交量方向线</b>（你的原始目标：下一小时量涨跌 &gt;70%）</td>
+<td>E014 零训练基线 → E017 回归模型 → E019 新信息维度 → E020 标签口径重定义</td>
+<td>E017 到 67.27%（增量 +4.89pp，离 70% 差 2.7pp）；E019 加 8 列新数据只值 +0.126pp；E020 换了 5 种标签口径，其中 3 种被证明「笨办法白送 73%~83%」，唯一不白送的口径考了 69.0% 也没到 70%</td></tr>
+<tr><td><b>买点事件线（缠论 BSP）</b></td>
+<td>E005 门控升级 → E007 Alpha158 真子集 → E013 生存模型 → E015（预留：分层回退查表）</td>
+<td>E007 判阴性（41 列怎么切都不行）；E013 判不可比（碎片化）；生存模型不退役但也找不到提升路径</td></tr>
+<tr><td><b>关联与稳定性探针</b></td>
+<td>E021 量→收益关联、E022 参照失稳、上游 vol_target 复盘</td>
+<td>量模型在方向上<b>没有岗位</b>（系统性反向）；在波幅上被一个现成数字压制；上游那张「准≠赚钱」的表是今天新捡到的</td></tr>
+</table>
+
+<p class="sub">读法：编号越大越新；「判了」的意思是——结果写死在实验文档里，任何人都能用落盘产物复算出来，而不是「我们感觉差不多」。</p>
+
+<h2>一、术语表（大白话，按使用场景分组）</h2>
+<p>每个词三件套：<b>大白话定义</b> → 一个类比 → <b>我们踩过的坑</b>（有编号的都是真实发生过的事）。</p>
+
+<details open>
+<summary>A. 行情与数据</summary>
+<div class="body">
+<dl>
+<dt>bar / K线 <span class="en">candle</span></dt>
+<dd>把一段时间（比如 1 小时）的价格压缩成一个格子：开盘价、最高价、最低价、收盘价、成交量。我们全仓用 1 小时格。
+<span class="why">类比：心电图上的一跳。1h bar = 每小时记录一跳。</span></dd>
+
+<dt>收益率 <span class="en">ret</span></dt>
+<dd>这一格价格变了百分之几。对数收益率是「用加法就能连乘」的版本，两种算法数字略有差别。
+<div class="pit"><b>坑：</b>成交量模型用简单收益率、波动率模型用对数收益率，两边都有叫 <code>ret_lag</code> 的列但根本不是一回事（决策记录 D050 记了三处这种「假朋友」）。<b>列名像 ≠ 同一个东西。</b></div></dd>
+
+<dt>已实现波动率 <span class="en">RV, realized volatility</span></dt>
+<dd>「这段时间价格到底晃得多厉害」的测量值。我们的标签就是它取对数。
+<span class="why">类比：体温。整个波动率线做的事就是「量体温 + 预测下一小时体温」。</span></dd>
+
+<dt>GK / Parkinson <span class="en">两种体温计</span></dt>
+<dd>同一根 bar 的两种波动率估计公式：Parkinson 只用最高/最低价，GK 再加上开/收盘。它们估的是<b>同一个</b> σ，只是噪声不同——所以上游把 6 列一起喂给模型，注释原话叫「给模型一个小小的估计器组合（估计器组合）」。
+<span class="why">这一点很值钱：它说明「两列合起来更强」的真实机制常常是<b>互相抵消噪声</b>，不是发现了新信息。</span></dd>
+
+<dt>log 空间</dt>
+<dd>波动率取对数再建模。原值从 0.3% 到 300% 差一千倍，取对数后变成好算的窄条带；而且「波动率翻倍」在对数空间里是均匀的一步。</dd>
+
+<dt>死量 bar <span class="en">dead bar</span></dt>
+<dd>成交量为 0 的格子。E008 查明它是<b>坏数据</b>（该小时没成交记录），不是「安静的市场」——剔掉之后整条波动率线重训过一次。</dd>
+
+<dt>尖峰 <span class="en">spike</span></dt>
+<dd>突然放量的一格。E017 的模型 gain 94.6% 押在两列量状态上——它大部分工作其实是「<b>现在在放量 → 下一小时回落</b>」这条回归均值的分级判断。</dd>
+</dl>
+</div>
+</details>
+
+<details open>
+<summary>B. 模型与基线</summary>
+<div class="body">
+<dl>
+<dt>基线 <span class="en">baseline</span></dt>
+<dd>出题之前先算好「笨办法能考多少分」。不写它，你就不知道你的模型到底带来了什么。
+<span class="why">类比：先让全班 averages 站上跑道，你的选手快没快，是<b>相对</b>出来的。</span></dd>
+
+<dt>免费规则 <span class="en">a5 等</span></dt>
+<dd>一条 if 就能算、零训练的规则。E021 实测：免费的 a5 规则在方向和波幅两个指标上<b>全部不输</b>训练过的模型。</dd>
+
+<dt>武装基线 <span class="en">armed</span></dt>
+<dd>给笨办法喂上日历、持续性这些「小抄」，让它变强之后再当裁判。目的：防止你的模型只是靠琐碎信息取胜。
+<span class="why">类比：陪练先穿上护具。打赢光膀子的陪练不算数，打赢穿护具的才算。</span></dd>
+
+<dt>persistence / naive</dt>
+<dd>最笨的两个基线：「明天的量 = 今天的量」「明天的波动 = 今天的波动」。别小看它们，波动率自相关性很强，这两个对手相当能打。</dd>
+
+<dt>HAR</dt>
+<dd>把 1 天、1 周、1 个月三个尺度的平均波动率加权相加的线性公式。波动率预测领域几十年的老基准。E016 的翻案本质上就是「HAR 的三个尺度怎么选」——从手调换成规则生成后，我们的树模型才第一次打赢武装参照。</dd>
+
+<dt>EWMA / GARCH</dt>
+<dd>两个递推式波动率模型。EWMA = 加权平均，越近权重越大（我们用 λ=0.94 的版本）；GARCH = 「今天的波动」和「今天的意外冲击」两个方程互相滚动。E011/E012 在 crypto 上它们都输给武装参照。</dd>
+
+<dt>LightGBM / XGBoost <span class="en">树模型</span></dt>
+<dd>一大群「如果…那么…」的判断叠起来的模型。我们的主力是 LightGBM（crypto 上两者打平，A股上 XGBoost 的 MSE 略好但 QLIKE 差 19 倍，所以不换）。</dd>
+
+<dt>gain 份额 / 特征重要性 <span class="tag warn">用了 ≠ 有用</span></dt>
+<dd>树模型训练时某列被用了多少比例。<b>它只说明「被使用」，不说明「有贡献」。</b>
+<div class="pit"><b>坑（E009）：</b>把 gain 第 3 名的列裁掉，模型成绩无损；把 gain 第 158 名的列裁掉，成绩反而掉了。别拿 gain 当结论，只当线索。</div></dd>
+</dl>
+</div>
+</details>
+
+<details open>
+<summary>C. 评价的尺子</summary>
+<div class="body">
+<dl>
+<dt>QLIKE</dt>
+<dd>波动率预测专用打分，越小越好，对「低估」罚得特别重。
+<span class="why">为什么用它：低估波动会让你重仓去挨打，所以低估的代价必须更贵。</span></dd>
+
+<dt>MSE <span class="en">均方误差</span></dt>
+<dd>误差平方再平均，越大罚越狠。波动率线和 A 股线用它。</dd>
+
+<dt>acc / Δpp <span class="en">答对率 / 百分点增量</span></dt>
+<dd>方向题（下一小时量涨还是跌）的答对率；Δpp 是两个数字的差。<b>所有 70% 目标的判定只认固定 0.5 阈值的 acc</b>——这是我们冻结过的口径，别的花哨阈值一律不算。</dd>
+
+<dt>CI / bootstrap <span class="en">置信区间</span></dt>
+<dd>「这个数有多大把握」。把样本有放回地重抽一万遍，看数字散布在哪。两条硬规矩：<b>CI 跨过 0 = 不能断言有信号</b>；逐币的 CI 要按「币簇」抽（同一天的币互相不独立）。</dd>
+
+<dt>逐币等权 vs pooled</dt>
+<dd>逐币等权 = 每个币一票再平均；pooled = 全部行混在一起算。pooled 会被大币和尖峰行绑架，所以我们主判据用逐币等权，pooled 只作参照。</dd>
+
+<dt>判定行集</dt>
+<dd>到底哪些行参与算分。行集一变数字全变，所以必须冻结并和上游逐位对拍（E016：判定行 1,205,982 = 上游，一行不差）。</dd>
+
+<dt>尺子同源</dt>
+<dd>判据代码只能从一个地方 import，不许抄写——抄写一定会抄错。E017 复用 E014 的评分代码，自检 120 项差值恰好 0.0。</dd>
+</dl>
+</div>
+</details>
+
+<details open>
+<summary>D. 纪律与方法（这个仓的交通规则）</summary>
+<div class="body">
+<dl>
+<dt>预注册</dt>
+<dd>跑之前把「判据、数据、切分、预算、停止条件」写死落盘。跑完之后不许改。它防的是最隐蔽的敌人：<b>跑完挑好看的那个数字</b>。</dd>
+
+<dt>三段授权</dt>
+<dd>注册（只读+写预注册）→ 你授权跑 → 写回（判定+台账+决策记录）。每段停下来等你点头，机器不会自己往下走。</dd>
+
+<dt>非平凡门 <span class="en">C1 门</span></dt>
+<dd>进模型阶段之前，先测「零训练能白送多少分」。E020 用这道门淘汰了三个标签口径——它们白送 73%~83%，考它们等于开卷考试。
+<div class="pit"><b>坑：</b>如果没这道门，我们会花几周把「白送 83%」的口径调到 85%，然后以为模型很厉害。</div></dd>
+
+<dt>IS / OOS <span class="en">练习册 / 期末考</span></dt>
+<dd>训练段（in-sample）和考试段（out-of-sample）按时间切开。模型只准看练习册。</dd>
+
+<dt>前视泄漏 & shift(1) <span class="tag warn">最贵的错误</span></dt>
+<dd>用了 t 时刻还看不到的信息 = 偷看考卷。数字会漂亮得离谱，实盘立刻现形。防法：所有特征整体前错一根（<code>shift(1)</code>）。上游仓库用两个测试盯着：往未来注一根尖峰看特征变不变、扰动当天价格看特征变不变。
+<div class="pit"><b>坑（今天的新鲜案例）：</b>把 E017 的量列搬进波动率面板时，<code>col_lag0</code> 含当期——而波动率标签恰好是当期 bar 的振幅。直搬 = 把答案印在考卷背面。必须重挂一根。</div></dd>
+
+<dt>purge / embargo <span class="en">边界隔离</span></dt>
+<dd>标签要跨很多根 bar 时，训练段尾巴和考试段开头之间要留空隙，防止滚动窗口跨边界「借到」考题。E020 实测边界真的起了作用（多剔了 1,690 行）。</dd>
+
+<dt>逐位复现 & 门槛分层</dt>
+<dd>同一份输入重跑，判定用到的每个字节都必须一样（判定层零容差）；不进判据的浮点列（比如 MAE 报告值）允许显式容差（报告层）。计时、版本这类每次必变的字段隔离到单独文件，不然门永远过不了（D052/D053）。</dd>
+
+<dt>E1 / E2 / E3 <span class="en">证据分级</span></dt>
+<dd><b>E1</b> = 源码、可复算产物（结论只准用它）；<b>E2</b> = 作者声称/README（只能写「作者称」）；<b>E3</b> = 推测类比（必须标注，不能当结论）。今天上游那张 vol_target 表是 E1（可复算产物），但样本是美股 美股指数，只能当结构启示、不能横比数字。</dd>
+
+<dt>作废不删</dt>
+<dd>错的结论标记「作废 + 原因 + 日期」留着，不许删。E021 当天我口头报过一个 2.45× 的数，落盘复现不出来，作废留档——防止历史被悄悄改写。</dd>
+
+<dt>输出层 vs 特征层冗余 <span class="tag">只差一层，结论相反</span></dt>
+<dd><b>输出层</b>：A 的<b>预测</b>被 B 的现成数字压制 → 「A 没有交易岗位」；<b>特征层</b>：B 的<b>输入</b>里已经含 A 的信息 → 「A 不必再采集」。E021 判的是前者；波动率面板一列量都没有，所以后者从未测过——<b>这正是 E023 候选存在的理由。</b></dd>
+</dl>
+</div>
+</details>
+
+<details open>
+<summary>E. 钱那一层（全仓最空、也最重要的一格）</summary>
+<div class="body">
+<dl>
+<dt>仓位 <span class="en">position</span></dt>
+<dd>这一笔拿多少钱去冒险。波动率预测最终服务的对象就是它，不是「预测本身」。</dd>
+
+<dt>波动率目标 <span class="en">vol target</span></dt>
+<dd>想让组合每年晃 15%，就用 <code>仓位 = clip(0.15 / 预测波动率, 0, 2)</code> 定每期仓位——预测到晃得厉害就减仓。上游 <code>外部参照</code> 原话。这是「预测 → 钱」的最简单一条桥。</dd>
+
+<dt>换手 <span class="en">turnover</span></dt>
+<dd>仓位变来变去的幅度总和。换手越高成本越贵。上游实测：最准的 LSTM 换手最高，最不准的 GARCH 只有它的四分之一左右——<b>差 4 倍</b>。</dd>
+
+<dt>交易成本 / 净 Sharpe</dt>
+<dd>每回合扣几个 bp（万分之一为单位），扣完的 Sharpe 才是真 Sharpe。上游实测扣 5bp 后，最准的模型净值反而垫底。</dd>
+
+<dt>最大回撤 <span class="en">max drawdown</span></dt>
+<dd>净值从最高点往下掉的最深坑。vol target 策略把回撤从 −80% 压到 −15%~-22%。</dd>
+
+<dt>开仓门槛 <span class="en">threshold</span></dt>
+<dd>信号强过多少才动手。规矩：阈值用「精度-阈值曲线」定，<b>不许在考试段上搜</b>——在考卷上挑阈值就是作弊。</dd>
+
+<dt>QLIKE → 钱的那一环 <span class="tag warn">本仓从未测过</span></dt>
+<dd>「预测更准」和「账户更有钱」之间隔着策略、换手、成本。我们 20 多个实验全部停在 QLIKE / acc，从来没有一个实验测过下游决策。这一格是空的，而且它不是靠加特征能填的。</dd>
+</dl>
+</div>
+</details>
+
+<h2>二、经验总结：这一程真正学到的十条</h2>
+<p>每条格式：<b>结论一句话</b> → 数字证据 → 以后怎么用。编号对应真实实验，可回查。</p>
+
+<ol class="lessons">
+<li>
+<span class="one">1. 标签决定上限，特征只决定你离上限多近。</span><br>
+证据：成交量方向的基率只有 47.4%，最强免费臂 62.4%（E014）——上限就在那里摆着；换标签口径后三个口径被证明笨办法白送 73%~83%（E020 的非平凡门）。你的原始目标 70% 在 L0 口径下到底可不可达，是<b>标签的属性</b>，不是模型的属性。<br>
+<span class="how">怎么用：任何「模型不够好」的念头，第一步先问「这个标签本身还剩多少可预测性」，先跑免费基线，再谈模型。</span>
+</li>
+<li>
+<span class="one">2. 特征越多越好是错觉。机器只会在你给的信息里找最强的一条路，它不会告诉你别的路有没有走平。</span><br>
+证据：21 列里 2 列吃掉 94.6% 的 gain，全部收益率类合计 0.074%（E017）；新抓 8 列外部数据只值 +0.126pp（E019）；上游把 7 列宏观/利率放进面板，gain 合计只有 5.03%，而 2 列波动率滞后占 68%；连「抓因子」的脚本都写好了却一次没用（<code>fetch_ff_factors.py:3</code> 自称 "Not required by the volatility pipeline"）。<br>
+<span class="how">怎么用：加特征前先回答「它和已有的最强列比，机制上多了什么」。答不出机制，先登记成待测格子，别急着抓数据。</span>
+</li>
+<li>
+<span class="one">3. 「两列合起来更强」的真实机制常常是噪声对冲，不是新信息。</span><br>
+证据：GK 和 Parkinson 是同一个 σ 的两支体温计，上游注释原话「估计器组合」（<code>外部参照</code>）。<br>
+<span class="how">怎么用：看到两个相似列合并后涨分，先问「是新信息，还是把标签本身测准了？」——后者叫改进测量，前者才叫发现信息。两者的可复制性天差地别。</span>
+</li>
+<li>
+<span class="one">4. 「A 的信息 B 已经有了」必须分输出层还是特征层说，两层只差一层、结论完全相反。</span><br>
+证据：量模型输出在方向上无岗位、在波幅上被 <code>rstd24</code> 压制 3.1~3.4 倍（E021）——这是<b>输出层</b>；但波动率面板 19 列里<b>一列量都没有</b>（<code>features.py:43</code> 量只当过滤器用完即丢）——<b>特征层从未测过</b>。把前者说成后者，会把唯一开着的实验方向以「已经做过」的名义关掉。<br>
+<span class="how">怎么用：说「冗余」之前给两边特征的构造行号 + 一条同台实测（D050 三条规则）。</span>
+</li>
+<li>
+<span class="one">5. 基线不是礼貌，是裁判。</span><br>
+证据：E021 里免费 a5 规则在方向和波幅上全部不输模型；E016 的翻案恰恰是靠把参照「武装」起来之后才看清谁强谁弱；E012/E011 双侧判负也是武装参照给的。<br>
+<span class="how">怎么用：任何判据旁边必须站着一个免费对手。打赢光膀子的笨办法不算数。</span>
+</li>
+<li>
+<span class="one">6. 准 ≠ 赚钱。模型之间差距很小，「用波动率调仓」这个动作值 0.30。</span><br>
+证据（上游 vol_target 表，美股指数 日线，结构启示）：QLIKE 最差的 GARCH（数值略）净 Sharpe 最高（数值略），QLIKE 最好的 LSTM（数值略）只排第二（数值略）；四个模型净值全挤在 几乎并列，而「恒定 1x 买入持有」明显更低。<b>钱的九成来自调仓动作本身，模型谁准只值 0.036。</b>换手差 4 倍（35 vs 135），成本与精度反向。<br>
+<span class="how">怎么用：波动率线的价值主张要改写成「供仓位决策用的风险预测」，并且要用一张净 Sharpe/回撤/换手的表来验收——这是全仓缺的那张考卷。</span>
+</li>
+<li>
+<span class="one">7. 参数不调，协议存规则不存手调数。</span><br>
+证据：E016 翻案的根源就是把「手调的 (24,120,528)」换成「规则生成的 (1,27,720)」——手调数只在你测过的那段时间成立，规则可以跨频率迁移并自检。超参数已按你的拍板冻结（2026-11-10）。<br>
+<span class="how">怎么用：任何数字进协议前问一句「换个市场/频率它还对吗」。对不了，就写成生成它的规则。</span>
+</li>
+<li>
+<span class="one">8. 结论只认可复算的 E1，连上游的成品都会腐烂。</span><br>
+证据：上游 <code>feature_importance.csv</code> 第 4 名是 <code>ret_1d</code>（份额居前），但他们现行代码已把该列删掉、测试里还有断言不许它存在——表是旧版代码产的（未重跑，此归因属 E3）。同类教训：E021 我口头报的 2.45× 复现不出来，作废留档。<br>
+<span class="how">怎么用：引用任何数字前，找到落盘产物或重算命令。「作者的 CSV」≠「作者的代码现在会产出的东西」。</span>
+</li>
+<li>
+<span class="one">9. 同名不同义会双向出错，而且不会报错。</span><br>
+证据：三处假朋友——<code>ret_lag</code> 一边是单根滞后一边是滚动均值；<code>ma24</code> 一边不含当期一边含；<code>volume</code> 一边是过滤器一边是主输入（D050）。另有 <code>ma24</code> 同名列覆盖 bug 被硬自检抓到（D047）。这些错位只会让两套数字「看起来互相印证」。<br>
+<span class="how">怎么用：跨模型比较或拼列前，先核 shift 语义和窗口含不含当期，差异表落盘；列名相交就加前缀 + 断言。</span>
+</li>
+<li>
+<span class="one">10. 纪律即效率：预注册、三段授权、门槛分层，都是为了让「错了能早死、对了能复算」。</span><br>
+证据：E020 的非平凡门在训练前就淘汰了三个口径（省下的机时不可考，但省下的弯路可考）；E016 的机时超限事件催生了「机时按所有尝试之和计」的口径；确定性门分成判定层/报告层后，一次 17.8 秒的加跑就能定位漂移在哪一层（D052）。<br>
+<span class="how">怎么用：感觉「流程繁琐」的时候，回想它们各自拦下过什么。每一层繁琐都对应一次真实翻车。</span>
+</li>
+</ol>
+
+<h2>三、把流程换成五步（可带走的操作法）</h2>
+<div class="card">
+<p>你现在的直觉流程：<b>收集特征 → 喂模型 → 希望它好</b>。换成：</p>
+<ol class="check">
+<li><b>这个标签有多少可预测性？</b>——先跑免费规则和零训练臂，把天花板量出来（E014/E020 在做）。</li>
+<li><b>缺的是「信息」还是「测量」？</b>——新列带来的是机制上不同的东西，还是另一支体温计？（今天刚学会区分）</li>
+<li><b>加进去能不能打过武装基线？</b>——打不过就不算数，无论 gain 多好看。</li>
+<li><b>这个指标接到哪个决策？</b>——仓位？门槛？还是只是好看？（<b>目前全空白</b>）</li>
+<li><b>那个决策赚不赚钱？</b>——净 Sharpe / 回撤 / 换手验收，不是模型分数。（<b>目前全空白</b>）</li>
+</ol>
+<p class="sub">现状：①③ 已是肌肉记忆，② 刚学会，<b>④⑤ 是你感觉「不对劲」的来源——那两格整个仓都是空的。</b></p>
+</div>
+
+<h2>四、下一步的两个候选格（等你拍板）</h2>
+<table>
+<tr><th style="width:30%">格子</th><th>内容</th><th style="width:26%">为什么值得</th></tr>
+<tr><td><b>(b) 决策口径考卷</b><br><span class="sub">建议优先</span></td>
+<td>不训练任何新模型。把已有的波动率/成交量预测接成一个决策口径（vol-target 仓位或开仓门槛），在 crypto 1h 面板上复现外部参照那张表的结构。判据：<b>净 Sharpe、最大回撤、换手</b>。</td>
+<td>它直接填 ④⑤ 两格，是「目标是赚钱」的那张考卷；机时很小（只读已有预测）。</td></tr>
+<tr><td><b>(a) E023 量列进波动率面板</b></td>
+<td>把成交量模型的量状态列（重挂 shift(1)、改比值形态）作为特征加进波动率面板，判据 QLIKE，照旧打过武装参照，跑前先过非平凡门。</td>
+<td>全仓唯一未测的「特征层」格子；今天的机制课给了它一个明确角色：<b>第三支体温计</b>（量修正的 σ 估计器），不是「新信息」。</td></tr>
+</table>
+<p class="sub">两件都按老规矩走三段授权：先注册（只读），你点头再跑，跑完写回。</p>
+
+<footer>
+来源（全部可回查）：本仓私有研究记录（实验与决策文档未随公开仓发布）、机器学习问题清单；外部参照规范的源码与结果表（未随公开仓发布）。外部参照的 vol_target 表样本为美股指数日线，仅作结构启示。
+</footer>
+
+</div>
+</body>
+</html>
