@@ -75,7 +75,7 @@ chan_notes/               核心包
   backtest/portfolio.py   逐 bar 盯市组合回测
 framework/                内置缠论算法（53 个文件，第三方组件见末节）
 scripts/                  数据、实验、报告脚本（94 个，入口见下）
-reports/                  研究报告、特征体检 CSV、实验台账（33 件）
+reports/                  研究报告、特征体检 CSV、实验台账（34 件）
 vendor/LocalStore.py      本地 parquet 数据源适配器
 tests/                    regime 门控口径的单元测试
 ```
@@ -132,6 +132,7 @@ python scripts/run_backtest.py --name events_main --mode confirm --stop 1.5 --ho
 - `reports/bsppoint_audit_20261109.md`：对早期买卖点报告的口径审计（含自我纠错）。
 - `reports/phase_a_tail_report.md`、`tail_*.csv`：尾部依赖检验。
 - `reports/frenzy_*.csv`、`regime_*.csv`：A 股 regime 门控的参数、样本外与稳健性结果；69 币加密复测的完整判定在台账 #75。
+- `reports/perfect_state_report_作废.html`：历史上的“筛选链路与上限对比”页（算法上限 / 机制上限 / 最优模型上限 P=R=90%）。其中 5×ATR 止盈与 score≥0.5 的筛选口径均已判死，页面仅作上限参照，勿当策略收益。
 
 研究结论会保留被推翻的版本：作废的结论标记原因与日期，不删除原文。
 
