@@ -161,7 +161,7 @@ python scripts/run_backtest.py --name events_main --mode confirm --stop 1.5 --ho
 
 如果这份研究对你有帮助，欢迎用支付宝扫码赞助，用于数据与算力成本：
 
-
+<img src="assets/alipay-donation.jpg" alt="支付宝赞助二维码" width="100">
 
 打开支付宝「扫一扫」。
 
